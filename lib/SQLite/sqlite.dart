@@ -34,7 +34,7 @@ class DatabaseHElper {
   //métodos de login e registro de usuário
 
   //Login
-  Future<bool> login(Users user) async {
+  Future<bool> login(UsersModel user) async {
     final Database db = await initDB();
 
     var result = await db.rawQuery(
@@ -46,19 +46,35 @@ class DatabaseHElper {
     }
   }
 
-  //Registrar
-  Future<int> signup(Users user) async {
+  //Registrar usuário
+  Future<int> signup(UsersModel user) async {
     final Database db = await initDB();
 
     return db.insert('users', user.toMap());
   }
 
-  //metodo de pesquisar
+  //Método de listar todos os usuários
+  Future<List<UsersModel>> getUsers() async {
+    final Database db = await initDB();
+    List<Map<String, Object?>> result = await db.query('users');
+    return result.map((e) => UsersModel.fromMap(e)).toList();
+  }
+
+  //método de pesquisar anotações
   Future<List<NoteModel>> searchNotes(String keyword) async {
     final Database db = await initDB();
     List<Map<String, Object?>> searchResult = await db
         .rawQuery("select * from notes where noteTitle LIKE ?", ["%$keyword%"]);
     return searchResult.map((e) => NoteModel.fromMap(e)).toList();
+  }
+
+
+   //método de pesquisar usuários
+  Future<List<UsersModel>> searchUsers(String keyword) async {
+    final Database db = await initDB();
+    List<Map<String, Object?>> searchResult = await db
+        .rawQuery("select * from users where usrName LIKE ?", ["%$keyword%"]);
+    return searchResult.map((e) => UsersModel.fromMap(e)).toList();
   }
 
   //CRUD Methods

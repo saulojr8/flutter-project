@@ -145,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                             //função de registrar
                             final db = DatabaseHElper();
                             db
-                                .signup(Users(
+                                .signup(UsersModel(
                                     usrName: username.text,
                                     usrPassword: password.text))
                                 .whenComplete(() {

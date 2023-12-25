@@ -1,15 +1,15 @@
-class Users {
+class UsersModel {
   final int? usrId;
   final String usrName;
   final String usrPassword;
 
-  Users({
+  UsersModel({
     this.usrId,
     required this.usrName,
     required this.usrPassword,
   });
 
-  factory Users.fromMap(Map<String, dynamic> json) => Users(
+  factory UsersModel.fromMap(Map<String, dynamic> json) => UsersModel(
         usrId: json["usrId"],
         usrName: json["usrName"],
         usrPassword: json["usrPassword"],
